@@ -17,23 +17,22 @@ model_dict = dict(
 
 def parse_args(script):
     parser = argparse.ArgumentParser(description= 'Attributional robustness script %s' %(script))
-    parser.add_argument('--dataset'     , default='cifar',        help='cifar/svhn/flower/GTSRB')
-    parser.add_argument('--model'       , default='Conv4',      help='model: Conv{4|6} / ResNet{10|18|34|50|101} / WRN 28-10/ 40-2')
-    parser.add_argument('--method'      , default='softmax',   help='softmax')
+    parser.add_argument('--dataset', default='cifar',   help='cifar/svhn/flower/GTSRB')
+    parser.add_argument('--model',   default='Conv4',   help='model: Conv{4|6} / ResNet{10|18|34|50|101} / WRN 28-10/ 40-2')
+    parser.add_argument('--method',  default='softmax', help='softmax')
     
     if script == 'train':
-        parser.add_argument('--save_freq'   , default=50, type=int, help='Save frequency')
-        parser.add_argument('--start_epoch' , default=0, type=int,help ='Starting epoch')
-        parser.add_argument('--stop_epoch'  , default=-1, type=int, help ='Stopping epoch') #for meta-learning methods, each epoch contains 100 episodes. The default epoch number is dataset dependent. See train.py
-        parser.add_argument('--resume'      , action='store_true', help='continue from previous trained model with largest epoch')
-        parser.add_argument('--warmup'      , action='store_true', help='continue from baseline, neglected if resume is true') #never used in the paper
+        parser.add_argument('--save_freq',   default=50, type=int, help='Save frequency')
+        parser.add_argument('--start_epoch', default=0,  type=int, help ='Starting epoch')
+        parser.add_argument('--stop_epoch',  default=-1, type=int, help ='Stopping epoch')
+        # for meta-learning methods, each epoch contains 100 episodes. The default epoch number is dataset dependent. See train.py
+        parser.add_argument('--resume',      action='store_true',  help='continue from previous trained model with largest epoch')
+        parser.add_argument('--warmup',      action='store_true',  help='continue from baseline, neglected if resume is true') #never used in the paper
         parser.add_argument('--bs', default=128, type=int)
     elif script == 'test':
         parser.add_argument('--save_iter', default=-1, type=int,help ='saved feature from the model trained in x epoch, use the best model if x is -1')
     else:
-       raise ValueError('Unknown script')
-        
-
+        raise ValueError('Unknown script')
     return parser.parse_args()
 
 

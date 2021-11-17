@@ -332,8 +332,9 @@ class BasicBlock(nn.Module):
         self.equalInOut = (in_planes == out_planes)
         self.convShortcut = (not self.equalInOut) and nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride,
                                padding=0, bias=False) or None
-    def forward(self, x_ ):
-        x , softplus = x_[0] , x_[1]
+
+    def forward(self, x_):
+        x, softplus = x_[0], x_[1]
         if not self.equalInOut:
             if not softplus :
                 x = self.relu1(self.bn1(x))
@@ -358,15 +359,18 @@ class BasicBlock(nn.Module):
     
 
 class NetworkBlock(nn.Module):
-    def __init__(self, nb_layers, in_planes, out_planes, block, stride, dropRate=0.0 , beta_value=1.0):
+    def __init__(self, nb_layers, in_planes, out_planes, block, stride, dropRate=0.0, beta_value=1.0):
         super(NetworkBlock, self).__init__()
         self.layer = self._make_layer(block, in_planes, out_planes, nb_layers, stride, dropRate , beta_value)
-    def _make_layer(self, block, in_planes, out_planes, nb_layers, stride, dropRate,beta_value):
+
+    def _make_layer(self, block, in_planes, out_planes, nb_layers, stride, dropRate, beta_value):
         layers = []
         for i in range(int(nb_layers)):
-            layers.append(block(i == 0 and in_planes or out_planes, out_planes, i == 0 and stride or 1, dropRate , beta_value))
+            first_param = i == 0 and in_planes or out_planes
+            layers.append(block(first_param, out_planes, i == 0 and stride or 1, dropRate, beta_value))
         return nn.Sequential(*layers)
-    def forward(self, x ):
+
+    def forward(self, x):
         return self.layer.forward(x)
             
 
@@ -407,9 +411,9 @@ class WideResNet(nn.Module):
                 
     def forward(self, x):
         out = self.conv1(x[0])
-        out = self.block1({0:out , 1:x[1]} )
-        out = self.block2({0:out[0] , 1:x[1]} )
-        out = self.block3({0:out[0] , 1:x[1]} )
+        out = self.block1({0:out , 1:x[1]})
+        out = self.block2({0:out[0] , 1:x[1]})
+        out = self.block3({0:out[0] , 1:x[1]})
         if x[1]:
             out = self.softplus(self.bn1(out[0]))
         else:
