@@ -1,42 +1,20 @@
-# Attributional-Robustness-Training
-Training methodology for attributional robustness and its application in weakly supervised object localization
+# Weakly Supervised Segmentation on Flower-17 Dataset
 
 Code for paper: Attributional Robustness Training using Input-Gradient Spatial Alignment (ECCV 2020)
 
-### Requirements
-- Python 3.6
-- Pytorch (≥ 1.1)
-- Python bindings for OpenCV.
-- TensorboardX
-- OpenCV-python
 
-### Running code on CIFAR-10
-------------
+**Run**
 
-```
-cd cifar
-python cifar_robust_train.py 
-```
-    
-**Evaluation**
+    python train_art.py
 
-    python eval_model.py 
+**Validation**
+
+Need to change some code to run the validation code. Now it can output images for comparison.
+
+![](pic/batch_19.jpg)
 
 
-### Running code on CUB-200 for WSOL
-------------
-```
-cd WSOL_CUB
-bash scripts/prepare_dataset.sh
-bash scripts/run_resnet_beta.sh
-```
-**Evaluation**
-```
-bash scripts/eval_resnet_beta.sh
-```
 
-### Pretrained models on CIFAR-10 and CUB-200
+### Flower 17 dataset
 
-CIFAR-10: [https://drive.google.com/file/d/1Xjn3kX_Lh887eIKicWhZFBtgRgKpCg6q/view?usp=sharing](https://drive.google.com/file/d/1Xjn3kX_Lh887eIKicWhZFBtgRgKpCg6q/view?usp=sharing)
-
-CUB-200: [https://drive.google.com/file/d/1LMUDHh6deCQ54mpVNqXQnYXXuIiAruzv/view?usp=sharing](https://drive.google.com/file/d/1LMUDHh6deCQ54mpVNqXQnYXXuIiAruzv/view?usp=sharing)
+Flower17: [https://www.robots.ox.ac.uk/~vgg/data/flowers/17/](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/)
