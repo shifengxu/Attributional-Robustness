@@ -9,9 +9,13 @@ Code for paper: Attributional Robustness Training using Input-Gradient Spatial A
 
 **Validation**
 
-Need to change some code to run the validation code. Now it can output images for comparison.
+Need to change some code to run the validation code. Now it can output images for comparison. Row 1 to row 4:
+  - original image
+  - gradients
+  - gradients multiply pixel value
+  - orginal mask (some mask is missing from official dataset)
 
-![](pic/batch_19.jpg)
+![image](pic/batch_019.jpg)
 
 
 
